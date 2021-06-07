@@ -1,0 +1,61 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    nginx.yaml                                         :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ctragula <ctragula@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/02/22 15:56:00 by kemaritsu         #+#    #+#              #
+#    Updated: 2021/03/15 14:10:16 by ctragula         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-svc
+  annotations: 
+    metallb.universe.tf/allow-shared-ip: minikube
+spec:
+  selector:
+    app: nginx
+  type: LoadBalancer
+  loadBalancerIP: 192.168.99.120
+  ports:
+  - protocol: TCP
+    name: http
+    port: 80
+    targetPort: 80
+  - protocol: TCP
+    name: https
+    port: 443
+    targetPort: 443
+  - protocol: TCP
+    name: ssh
+    port: 22
+    targetPort: 22
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-dp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx_image
+        imagePullPolicy: Never
+        resources:
+          limits:
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        - containerPort: 22
