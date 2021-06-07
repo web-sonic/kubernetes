@@ -4,14 +4,14 @@
 <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a> </br>
 <a href="https://minikube.sigs.k8s.io/docs/start/">minikube</a>
 
-# Install
+## Install
 
 <code>./setup.sh</code>
 
-# Using
+## Using
 minikube dashboard
 
-# Services
+## Services
 
 nginx</br>
 wordpress</br>
