@@ -9,7 +9,7 @@
 <code>./setup.sh</code>
 
 ## Using
-minikube dashboard
+<code>minikube dashboard</code>
 
 ## Services
 
